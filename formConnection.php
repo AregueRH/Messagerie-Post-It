@@ -40,3 +40,4 @@
                 header('Location: http://localhost:8000/formConnection.html');
                 exit();
             }
+?>
