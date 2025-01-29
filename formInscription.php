@@ -10,7 +10,7 @@ if
 else
         {
             $identifiant = htmlspecialchars($_POST["identifiant"]);
-            $mdp = $_POST["motDePasse"];
+            $mdp = htmlspecialchars($_POST["motDePasse"]);
             $hashed_mdp = password_hash($mdp, PASSWORD_DEFAULT);
         }
 
@@ -28,6 +28,6 @@ try
 $request = $db->prepare("INSERT INTO utilisateur (identifiant, mot_de_passe_hashed) VALUES (?,?) ");
 $request->execute([$identifiant, $hashed_mdp]);
 
-header('Location: http://localhost:8000/test_inscription.html');
+header('Location: http://localhost:8000/formConnection.html');
 exit();
 ?>
