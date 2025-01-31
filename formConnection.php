@@ -23,7 +23,7 @@
             die('Erreur : ' . $e->getMessage());
         }
 
-    $request = $db->prepare("SELECT mot_de_passe_hashed FROM utilisateur WHERE identifiant = ?");
+    $request = $db->prepare("SELECT id, mot_de_passe_hashed FROM utilisateur WHERE identifiant = ?");
     $request->execute([$identifiant]);
     $utilisateur = $request->fetch(PDO::FETCH_ASSOC);
 
@@ -31,6 +31,7 @@
         ($utilisateur && password_verify($mdp, $utilisateur['mot_de_passe_hashed']))
             {
                 $_SESSION['identifiant'] = $identifiant;
+                $_SESSION['utilisateur_id'] = $utilisateur['id'];
                 header('Location: http://localhost:8000/testConnection.html');
                 exit();
             }
