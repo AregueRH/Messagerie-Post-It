@@ -5,8 +5,9 @@ if (!isset($_SESSION['utilisateur_id'])) {
     exit();
 }
 
-require 'config.php'; // Connexion à la base de données
-require 'Liste.php';  // Inclusion de la classe Liste
+require 'config.php'; 
+require 'Liste.php';  
+require 'Utilisateur.php';
 
 // Traitement du formulaire
 if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['nouvelleListe'])) {
@@ -49,19 +50,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['nouvelleListe'])) {
         $requete->execute();
         $listes = $requete->fetchAll();
 
-        if 
-            (!empty($listes))
-                {
-                    foreach ($listes as $liste) {
-                    ?>
-                        <p><?php echo $liste['nom']; ?></p>
-                    <?php
-                    }
-                }
-        else 
-                {
-                    echo "<p>Aucune liste trouvée.</p>";
-                }
+        if (!empty($listes)) {
+            foreach ($listes as $liste) {
+
+                $requeteUtilisateur = $db->prepare("SELECT identifiant FROM Utilisateur WHERE id = ?");
+                $requeteUtilisateur->execute([$liste['utilisateur_id']]);
+                $utilisateur = $requeteUtilisateur->fetch();
+
+        ?>
+                <p><?php echo $liste['nom']; ?></p>
+                <p>Liste créé par --> <?php echo $utilisateur['identifiant'];?> <-- </p>
+                <p>son identifiant est : <?php echo $liste['utilisateur_id']?></p>
+                <br>
+        <?php
+            }
+        } else {
+            echo "<p>Aucune liste trouvée.</p>";
+        }
         ?>
     </div>
 </body>
