@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
         public $nom;
         private $db;
 
-        public function __construct($db, $nom, $id = null)
+        public function __construct($db, $nom = null, $id = null)
             {
                 $this->id = $id;
                 $this->nom = $nom;
@@ -38,6 +38,20 @@ if (session_status() === PHP_SESSION_NONE) {
                         echo "Erreur : " . $e->getMessage();
                         return false;
                     }
-    }
+            }
+
+        public function supprimerListe()
+            {
+        var_dump($this->id);
+                // if 
+                //     (!isset($_SESSION['utilisateur_id'])) 
+                //         {
+                //             header('Location: http://localhost:8000/formConnection.html');
+                //             exit();
+                //         }
+
+                    $requete = $this->db->prepare("DELETE FROM liste WHERE id = ? ");
+                    return $requete->execute([$this->id]);
+            }
 }
 ?>
