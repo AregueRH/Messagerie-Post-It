@@ -56,7 +56,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['ajoutElement']) && !e
 }
 
 // suppression d'un element dans une liste existante
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["supprimerElement"])) {
+    var_dump($_POST);
+    $contenu = new ListElement($db);
+    $contenu->setId($_POST['element_id']);
 
+    if ($contenu->supprimerElement()) {
+        echo 'Element de la liste supprimé avec succès !';
+    }
+    else {
+        echo "erreur lors de la suppression de l'élèment.";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -70,6 +81,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['ajoutElement']) && !e
 
 <body>
     <div>
+
+<?php
+// formulaire d'ajout d'une nouvelle liste
+?>
         <form action="" method="POST">
             <label for="nouvelleListe">Nouvelle liste</label>
             <input type="text" name="nouvelleListe">
@@ -91,37 +106,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['ajoutElement']) && !e
 
         ?>
                 <div>
+
+<?php
+// formulaire de supprission de liste
+?>
                     <p><?php echo $liste['nom']; ?></p>
                     <form action='' method='POST' style='display:inline;'>
                         <input type='hidden' name='liste_id' value="<?php echo htmlspecialchars($liste['id']); ?>">
                         <button type='submit' name='supprimerListe'>❌</button>
                     </form>
+<?php
+//  requete d'affichage des elements de listes
+?>
                     <p>Liste créée par : <?php echo $utilisateur['identifiant']; ?></p>
-
-
                     <?php
-                    $requeteElements = $db->prepare("SELECT contenu FROM liste_element WHERE liste_id = ?");
+                    $requeteElements = $db->prepare("SELECT id, contenu FROM liste_element WHERE liste_id = ?");
                     $requeteElements->execute([$liste['id']]);
                     $elements = $requeteElements->fetchAll();
 
                     if (!empty($elements)) {
                         foreach ($elements as $element) {
                             echo $element['contenu'];
-                            ?>
+                    ?>
 
                             <form action="" method="POST">
-                                    <input type="text">
+                                <input type="hidden" name='element_id' value="<?php echo htmlspecialchars($element['id']); ?>">
+                                <button type="submit" name="supprimerElement">❌</button>
 
                             </form>
 
                             <br>
-                            <?php 
+                    <?php
                         }
                     } else {
                         echo "<p>Aucun élément dans cette liste.</p>";
                     }
                     ?>
-
+<?php
+//  formaulaire d'ajout d'élément à une liste
+?>
                     <form action="" method='POST'>
                         <input type='hidden' name='liste_id' value="<?php echo htmlspecialchars($liste['id']); ?>">
                         <input type="text" name="ajoutElement" required>

@@ -42,4 +42,9 @@ class ListElement
                 $requete = $this->db->prepare("DELETE FROM liste_element WHERE id = ?");
                 return $requete->execute([$this->id]);
             }
+
+        public function setId($id)
+            {
+                $this->id = $id;
+            }
     }
