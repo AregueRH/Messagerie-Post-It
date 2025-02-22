@@ -4,7 +4,7 @@ if
         {
             $msgErreur = 'veuillez proposer un identifiant et un mot de passe valide';
             var_dump($msgErreur);
-            header('Location: http://localhost:8000/formInscription.html');
+            header('Location: formInscription.html');
             exit();
         }
 else
@@ -28,6 +28,6 @@ try
 $request = $db->prepare("INSERT INTO utilisateur (identifiant, mot_de_passe_hashed) VALUES (?,?) ");
 $request->execute([$identifiant, $hashed_mdp]);
 
-header('Location: http://localhost:8000/formConnection.html');
+header('Location: formConnection.html');
 exit();
 ?>

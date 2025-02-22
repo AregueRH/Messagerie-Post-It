@@ -2,31 +2,37 @@ body {
     background-color: rgb(203, 255, 255);
 }
 
+
+@font-face {
+    font-family: "BlackBoard";
+    src: url("BlackBoard.ttf") format("truetype");
+}
 .h1, .h2 {
     /* background-color: rgb(144, 224, 248); */
     display: flex;
     justify-content: center;
-    font-family: Arial, sans-serif;
+    font-family: BlackBoard, sans-serif;
 }
 
 .h1 {
-    background-color: rgb(214, 206, 195);
+    /* background-color: rgb(214, 206, 195); */
     width: 250px;
     height: 150px;
     margin: 0 auto;
     
-    border-radius: 78% 22% 77% 23% / 23% 79% 21% 77%;
+    /* border-radius: 78% 22% 77% 23% / 23% 79% 21% 77%; */
 }
 
 .h1 h1 {
-    font-size: 50px;
-    font-family: cursive;
+    font-size: 100px;
+    /* font-family: cursive; */
     color: rgb(94, 48, 18);
 }
 
 h2 {
-    font-family: cursive;
+    font-family: Script MT Bold;
     color: rgb(0, 59, 8);
+    margin-top: 50px;
 }
 
 .form {
@@ -51,9 +57,11 @@ h2 {
     width: 200px;
     margin: 0 auto;
     font-style: italic;
+    font-family: Tempus Sans ITC;
     height: 40px;
     border-radius: 52% 48% 48% 52% / 100% 100% 0% 0%;
     text-align: center;
+    font-size: 18px;
 }
 
 .mdp {
@@ -68,7 +76,8 @@ h2 {
     font-style: italic;
     border-radius: 50% 50% 51% 49% / 0% 0% 100% 100%;
     text-align: center;
-}
+    font-size : 18px;
+    font-family: Tempus Sans ITC;}
 
 .btn button {
     border-radius: 61% 39% 57% 43% / 40% 58% 42% 60%;
@@ -76,5 +85,5 @@ h2 {
     height: 50px;
     background-color: rgb(240, 255, 105);
     font-size: x-large;
-    font-family: cursive;
+    font-family: Script MT Bold;
 }
